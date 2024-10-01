@@ -1,0 +1,40 @@
+﻿@model IEnumerable<CLOUD_STORAGE_2.Models.Jacket>
+
+<h1>Jackets</h1>
+<a href="@Url.Action("AddJacket", "Jacket")" class="btn btn-primary">Add New Jacket</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var jacket in Model)
+        {
+            <tr>
+                <td>@jacket.Jacket_Name</td>
+                <td>@jacket.Description</td>
+                <td>@jacket.Location</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(jacket.ImageUrl))
+                    {
+                        <img src="@jacket.ImageUrl" alt="@jacket.Jacket_Name" style="width:100px;height:auto;" />
+                    }
+                </td>
+                <td>
+                    <form asp-action="DeleteJacket" method="post" style="display:inline;">
+                        <input type="hidden" name="partitionKey" value="@jacket.PartitionKey" />
+                        <input type="hidden" name="rowKey" value="@jacket.RowKey" />
+                        <input type="hidden" name="ImageUrl" value="@jacket.ImageUrl" />
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this jacket?');">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

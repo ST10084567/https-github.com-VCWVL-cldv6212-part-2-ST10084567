@@ -1,0 +1,46 @@
+﻿@model CLOUD_STORAGE_2.Models.Sighting
+
+@{
+    var jacketOwner = ViewData["JacketOwner"] as List<CLOUD_STORAGE_2.Models.JacketOwner>;
+    var jacket = ViewData["Jackets"] as List<CLOUD_STORAGE_2.Models.Jacket>;
+}
+
+<h1>Register a Sighting</h1>
+
+@if (jacketOwner == null || jacketOwner.Count == 0 || jacket == null || jacket.Count == 0)
+{
+    <div class="alert alert-warning">
+        No jacket owners or jackets available. Please ensure they are added first.
+    </div>
+}
+else
+{
+    <form asp-action="Register" method="post">
+        <div class="form-group">
+            <label asp-for="JacketOwner_ID">Select Jacket Owner</label>
+            <select asp-for="JacketOwner_ID" class="form-control" asp-items="@(new SelectList(jacketOwner, "JacketOwner_Id", "JacketOwner_Name"))">
+                <option value="">-- Select Jacket Owner --</option>
+            </select>
+            <span asp-validation-for="JacketOwner_ID" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Jacket_ID">Select Jacket</label>
+            <select asp-for="Jacket_ID" class="form-control" asp-items="@(new SelectList(jacket, "Jacket_Id", "Jacket_Name"))">
+                <option value="">-- Select Jacket --</option>
+            </select>
+            <span asp-validation-for="Jacket_ID" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Sighting_Location"></label>
+            <input asp-for="Sighting_Location" class="form-control" />
+            <span asp-validation-for="Sighting_Location" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Sighting_Date"></label>
+            <input asp-for="Sighting_Date" class="form-control" type="datetime" />
+            <span asp-validation-for="Sighting_Date" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Sighting</button>
+    </form>
+}
+

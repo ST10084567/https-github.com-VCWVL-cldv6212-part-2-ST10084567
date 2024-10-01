@@ -1,0 +1,25 @@
+﻿@model IEnumerable<CLOUD_STORAGE_2.Models.Sighting>
+
+<h1>All Sightings</h1>
+<a href="@Url.Action("Register", "Sighting")" class="btn btn-primary">Add New Sighting</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Jacket Owner ID</th>
+            <th>Jacket ID</th>
+            <th>Location</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sighting in Model)
+        {
+            <tr>
+                <td>@sighting.JacketOwner_ID</td>
+                <td>@sighting.Jacket_ID</td>
+                <td>@sighting.Sighting_Location</td>
+                <td>@sighting.Sighting_Date</td>
+            </tr>
+        }
+    </tbody>
+</table>
